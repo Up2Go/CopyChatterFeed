@@ -1,0 +1,14 @@
+eclipse.preferences.version=1
+endpointApiVersion=37.0
+endpointEnvironment=Production/Developer Edition
+endpointServer=login.salesforce.com
+httpsProtocol=true
+ideVersion=37.0
+keependpoint=false
+metadataFormatVersion=37.0
+namespacePrefix=UP2GO_CPRM_BM
+packageName=CopyChatterFeed
+preferToolingDeployment=true
+projectIdentifier=IDE-2182847456535231617
+readTimeout=400
+username=robert.soesemann@cprm-bm.int.trunk
