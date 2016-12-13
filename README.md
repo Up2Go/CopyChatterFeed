@@ -6,7 +6,7 @@ Apex script (including test class) to copy an existing Chatter Feed from one obj
   1. <a href="https://githubsfdeploy.herokuapp.com?owner=Up2Go&repo=CopyChatterFeed">
   <img alt="Deploy to Salesforce"
        src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/src/main/webapp/resources/img/deploy.png">
-</a>
+</a> or [Install as unmanaged package](https://login.salesforce.com/packaging/installPackage.apexp?p0=04tC0000000jhNF)  
   2. Paste into Execute Anonymous Window: `new ChatterFeed(OLD_PARENT).copyTo(NEW_PARENT);`
   3. Replace OLD_PARENT with the old and NEW_PARENT with the new record Id of the feed parent (Case, Opportunity or any other Chatter-enabled Standard or Custom object)
   4. Execute
