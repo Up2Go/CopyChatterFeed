@@ -17,6 +17,7 @@ public class ChatterFeed {
     
     public void copyTo(Id newParent) {
 	// Workaround due to untraceable error messages: https://success.salesforce.com/ideaView?id=08730000000XkUBAA0
+	// TODO: fix this when Idea is implemented.
 	insertContentFakes(parentId);
 	
         fflib_SObjectUnitOfWork uow = new fflib_SObjectUnitOfWork(new List<Schema.SObjectType>{ FeedItem.SObjectType, FeedComment.SObjectType });
