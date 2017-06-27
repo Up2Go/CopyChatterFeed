@@ -16,6 +16,9 @@ public class ChatterFeed {
     // PUBLIC
     
     public void copyTo(Id newParent) {
+	// Workaround due to untraceable error messages: https://success.salesforce.com/ideaView?id=08730000000XkUBAA0
+	insertContentFakes(parentId);
+	
         fflib_SObjectUnitOfWork uow = new fflib_SObjectUnitOfWork(new List<Schema.SObjectType>{ FeedItem.SObjectType, FeedComment.SObjectType });
         
         for(FeedItem original : [SELECT BestCommentId, Body, CommentCount, CreatedById, CreatedDate, CreatedBy.IsActive, CreatedBy.Name, 
@@ -43,10 +46,40 @@ public class ChatterFeed {
         }
         
         uow.commitWork();
+	deleteContentFakes();
     }
 
 
 	// PRIVATE
+    
+    private void insertContentFakes(Id parentId) {
+        List<FeedItem> fakeposts = new List<FeedItem>();
+        
+        for(FeedItem contentPost : [SELECT ParentId, RelatedRecordId
+                                    FROM FeedItem
+                                    WHERE ParentId = :parentId
+                                    AND Type = 'ContentPost']) {
+            FeedItem fakePost = contentPost.clone(false, false, true, true);
+            fakePost.CreatedById = UserInfo.getUserId();
+            fakepost.Body = 'delete me';
+            
+            fakeposts.add(fakePost);
+        }
+        
+        insert fakeposts;
+    }
+    
+    private void deleteContentFakes() {
+        List<FeedItem> fakeposts = new List<FeedItem>();
+        
+        for (FeedItem post : [SELECT Body FROM FeedItem WHERE CreatedById = :UserInfo.getUserId() AND Type = 'ContentPost']) {
+            if(post.Body == 'delete me') {
+                fakeposts.add(post);
+            }
+        }
+        
+        delete fakePosts;
+    }
     
     private Boolean isFileByCommunityUser(FeedItem item) {
         return (item.RelatedRecordId != null && !STANDARD_USERS.contains(item.CreatedById));
